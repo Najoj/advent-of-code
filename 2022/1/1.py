@@ -1,5 +1,5 @@
-input_file = 'data1.txt'
-# input_file = 'testdata1.txt'
+input_file = 'data.txt'
+# input_file = 'testdata.txt'
 with open(input_file, 'r') as f:
     data = f.readlines()
 

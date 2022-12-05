@@ -23,5 +23,5 @@ class Stack:
         return self._height
 
     def __str__(self):
-        string = ' '.join(string for string in self._stack[key])
+        string = ' '.join(string for string in self._stack)
         return string

@@ -15,6 +15,8 @@ for stack_number in range(no_stacks):
 read_moves = False  # read stacks.
 match_stacks = True
 height = 0
+re_move = re.compile(r'move (\d+) from (\d+) to (\d+)')
+
 for line in data:
     if match_stacks and line and '1' not in line:
         stack_number = 0
@@ -23,11 +25,11 @@ for line in data:
             stacks[stack_number].push(box, True)
             stack_number += 1
             stack_number %= no_stacks
+
     elif match_stacks and '1' in line:
         match_stacks = False
 
     elif line.strip():
-        re_move = re.compile(r'move (\d+) from (\d+) to (\d+)')
         _, no, from_, to, _ = re.split(re_move, line)
         no, from_, to = int(no), int(from_) - 1, int(to) - 1
 

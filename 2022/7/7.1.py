@@ -90,8 +90,7 @@ print(total_size)
 
 total_system_size = 70_000_000
 free_needed = 30_000_000
-size_to_free = total_system_size - directory_sizes[ROOT]
-size_to_free = free_needed - size_to_free
+size_to_free = free_needed - total_system_size + directory_sizes[ROOT]
 
 biggest, smallest = total_system_size, 0
 biggest_path, smallest_path = 'XXX', 'YYY'

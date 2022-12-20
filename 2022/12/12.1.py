@@ -1,15 +1,6 @@
 input_file = 'testdata.txt'
 input_file = 'data.txt'
-#input_file = 'my_testdata.txt'
-
-X = 0
-Y = 1
-
-NORTH = 0
-EAST = 1
-WEST = 2
-SOUTH = 3
-DIRECTIONS = [NORTH, EAST, SOUTH, WEST]
+input_file = 'my_testdata.txt'
 
 
 class MountainChain:
@@ -33,38 +24,18 @@ class MountainChain:
 
     def end_position(self, x, y):
         self.end = (x, y)
-        self.add(x, y, ord('z') - ord('a') + 1)
+        self.add(x, y, ord('z') - ord('a'))
 
     def seek(self) -> int:
         start_x, start_y = self.start
         self.visited.add((start_x, start_y))
-        walk = self.find_neighbours(start_x, start_y)
-        print(self)
+        walk = self.find_neighbours([(start_x, start_y)])
+        # print(self)
         return self._seek(walk) + 1
 
-    def find_neighbours(self, start_x, start_y):
-        walk = []
-        neighbours = [(start_x + 0, start_y + 1),
-                      (start_x + 1, start_y + 0),
-                      (start_x + 0, start_y - 1),
-                      (start_x - 1, start_y + 0)]
-        for neighbour_x, neighbour_y in neighbours:
-            if (0 <= neighbour_x < self._columns and
-                    0 <= neighbour_y < self._roms and
-                    self.map[neighbour_y][neighbour_x] <= self.map[start_y][start_x] + 1 and
-                    (neighbour_x, neighbour_y) not in self.visited):
-                walk.append((neighbour_x, neighbour_y))
-                self.visited.add((neighbour_x, neighbour_y))
-        return walk
-
-    def _seek(self, walk) -> int:
+    def find_neighbours(self, walk):
         next_walk = []
-        if not walk:
-            raise ValueError('Next iteration is empty.')
-        if self.end in walk:
-            return 0
         for neighbour in walk:
-
             start_x, start_y = neighbour
             self.visited.add((start_x, start_y))
             neighbours = [(start_x + 0, start_y + 1),
@@ -79,7 +50,16 @@ class MountainChain:
                         (neighbour_x, neighbour_y) not in self.visited):
                     next_walk.append((neighbour_x, neighbour_y))
                     self.visited.add((neighbour_x, neighbour_y))
-        print(self)
+        return next_walk
+
+    def _seek(self, walk) -> int:
+        if not walk:
+            raise ValueError('Next iteration is empty.')
+        if self.end in walk:
+            return 0
+        next_walk = self.find_neighbours(walk)
+
+        # print(self)
         return self._seek(next_walk) + 1
 
     def __str__(self) -> str:

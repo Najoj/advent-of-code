@@ -11,5 +11,6 @@
 # 9  remove last extra * by cutting the line
 # 10 let bc calculate the multiplication
 
-(grep -v ^$ data.txt | tr -d "\[\]"; echo 6; echo 2) | sort -g | cat -n | grep -E '[^,][26]$'  | cut -f1 | tr '\n' '*' | cut -d'*' -f-2 | bc
+# .- 1 ------------.   .- 2 ------.  .- 3 --------.    .- 4 -.   .- 5 .   .- 6 -------------.   .- 7 -.   .- 8 -----.   .- 9 --------.   10
+(grep -v ^$ data.txt | tr -d "\[\]"; echo 6; echo 2) | sort -g | cat -n | grep -E '[^,][26]$' | cut -f1 | tr '\n' '*' | cut -d'*' -f-2 | bc
 

@@ -6,7 +6,6 @@ input_file = 'my_input.txt'
 with open(input_file, 'r') as f:
     data = f.readlines()
 
-re_card = re.compile(r'Card (\d+):')
 game_points = []
 game_cards = []
 number_of_cards = [1] * len([n for n in data if n])

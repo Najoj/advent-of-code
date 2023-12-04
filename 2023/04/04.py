@@ -1,9 +1,8 @@
-import copy
 import math
 import re
 
 input_file = 'my_input.txt'
-#input_file = 'test_input.txt'
+# input_file = 'test_input.txt'
 with open(input_file, 'r') as f:
     data = f.readlines()
 
@@ -34,8 +33,7 @@ for line in data:
         n_cards = int(math.log2(card_points) + 1)
         for n in range(0, n_cards):
             bonus = card_no + n
-            number_of_cards[bonus] += number_of_cards[card_no-1]
-        #print(number_of_cards)
+            number_of_cards[bonus] += number_of_cards[card_no - 1]
 
 print('Part 1:', sum(game_points))
 number_of_cards = sum(number_of_cards)

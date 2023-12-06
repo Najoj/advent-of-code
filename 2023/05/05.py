@@ -83,8 +83,6 @@ for s in seeds:
 
 print('Part 1:', smallest_location)
 
-# seeds_set = optimize(seeds_set)
-
 smallest_location = None
 for ss in seeds_set:
     for s in range(ss[0], ss[1]):

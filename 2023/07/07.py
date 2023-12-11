@@ -29,7 +29,7 @@ class Hand:
         self.hand = _line.split(' ')[0]
         self.bid = int(_line.split(' ')[1])
         self.rank = None
-        self.type = self.get_type()
+        self.type = self.get_type2() if part2 else self.get_type()
 
     def __gt__(self, other):
         if other.type != self.type:
@@ -38,18 +38,24 @@ class Hand:
             if oh != sh:
                 return self._card_order[oh] < self._card_order[sh]
 
-    def get_type(self):
-        if self.part2 and 'J' in self.hand:
-            commonest = ('', 0)
-            for l in [x for x in self.hand if x != 'J']:
-                _count = self.hand.count(l)
-                if commonest[1] < _count:
-                    commonest = (l, _count)
-                elif (commonest[1] == _count
-                      and self._card_order[commonest[0]] < self._card_order[l]):
-                    commonest = (l, _count)
-            _hand = self.hand.replace('J', commonest[0])
-        else:
+    def get_type2(self):
+        if 'J' not in self.hand:
+            return self.get_type()
+        if self.hand == 'JJJJJ':
+            return self.FIVE_OF_A_KIND
+
+        max_type = self.HIGH_CARD
+        for l in set(self.hand):
+            if l != 'J':
+                test_hand = self.hand.replace('J', l)
+                t = self.get_type(test_hand)
+                if max_type < t:
+                    max_type = t
+
+        return max_type
+
+    def get_type(self, _hand=None):
+        if _hand is None:
             _hand = self.hand
 
         ls = len(set(_hand))

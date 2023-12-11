@@ -1,7 +1,7 @@
 import re
 
 input_file = 'my_input.txt'
-# input_file = 'test_input.txt'
+#input_file = 'test_input.txt'
 with open(input_file, 'r') as f:
     data = f.readlines()
 
@@ -41,11 +41,8 @@ class Hand:
 
         if ls == 2:
             # XXXXY
-            if (re.match(r'^(.)\1{3}.$', self.hand)
-                    or re.match(r'^(.)\1{2}.\1$', self.hand)
-                    or re.match(r'^(.)\1.\1{2}$', self.hand)
-                    or re.match(r'^(.).\1\1{3}$', self.hand)
-                    or re.match(r'^.(.)\1\1{3}$', self.hand)):
+            if (self.hand.count(self.hand[0]) == 1
+                    or self.hand.count(self.hand[0]) == 4):
                 return self.FOUR_OF_A_KIND
             # XXXYY
             return self.FULL_HOUSE
@@ -75,7 +72,4 @@ for hb in hand_bids:
     rank += 1
     answer += rank * hb.bid
 
-print(answer)
-assert answer != 248512134
-assert answer != 248367728
-assert answer != 248280230
+print('Part 1:', answer)

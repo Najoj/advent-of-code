@@ -1,7 +1,6 @@
-import math as maths  # Oi, British
-
-INPUT = 'example.in'
+# INPUT = 'example.in'
 INPUT = 'my.in'
+
 
 def get_valid(from_, to_):
     for x in range(from_, to_ + 1):
@@ -11,13 +10,13 @@ def get_valid(from_, to_):
             yield x
 
 
-
 def sum_of_ids(from_, to_):
     sum_ = 0
     for x in get_valid(from_, to_):
         if from_ <= int(x) <= to_:
             sum_ += int(x)
     return sum_
+
 
 with open(INPUT) as f:
     # All in one line
